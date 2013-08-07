@@ -18,3 +18,14 @@ odds n = map f [0..n-1]
 -- 4.8 exercises
 -- 1
 -- halve will split an even-lengthed list into two halves
+-- halve with guards returns "Non-exhaustive patterns in function"
+-- if I use [x].  Instead if I use xs it works.  Go figure.
+halve :: [a] -> ([a], [a])
+halve xs | length xs `mod` 2 == 0 = splitAt (length xs `div` 2) xs
+		  | otherwise = ([],[])
+
+-- halve using a conditional
+-- returns with "Non-exhaustive patterns" likely because of the
+-- brackets
+-- halve [x] = if length [x] `mod` 2 == 0 
+--	then splitAt (length [x] `div` 2) [x] else ([x], [x])
