@@ -29,3 +29,22 @@ halve xs | length xs `mod` 2 == 0 = splitAt (length xs `div` 2) xs
 -- brackets
 -- halve [x] = if length [x] `mod` 2 == 0 
 --	then splitAt (length [x] `div` 2) [x] else ([x], [x])
+
+-- 2
+-- safetail will function like the library function tail but will
+-- handle the empty list by mapping it to itself
+
+-- conditional version
+safetailc :: [a] -> [a]
+safetailc xs = if null xs then xs
+			   else tail xs
+-- guarded version
+safetailg :: [a] -> [a]
+safetailg xs | length xs /= 0 = tail xs
+			 | otherwise = xs
+
+-- pattern matching version
+-- if the patterns are in reverse order, matching overlaps
+safetailp :: [a] -> [a]
+safetailp [] = []
+safetailp xs = tail xs
