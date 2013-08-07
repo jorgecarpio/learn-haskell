@@ -48,3 +48,33 @@ safetailg xs | length xs /= 0 = tail xs
 safetailp :: [a] -> [a]
 safetailp [] = []
 safetailp xs = tail xs
+
+-- 3
+-- Show how the logical disjunction || operator can be defined in four ways
+-- using pattern matching.  Creates ambiguity though with the library function.
+(||) :: Bool -> Bool -> Bool
+True || True = True
+True || False = True
+False || True = True
+False || False = False
+
+-- 4
+-- Redefine the conjunction operator using conditional expressions
+conjunction :: Bool -> Bool -> Bool
+x `conjunction` y = if x == True && y == True then True else False
+
+-- 5
+-- Do the same for:
+-- True && b = b
+-- False && _ = False
+conjunction5 :: Bool -> Bool -> Bool
+x `conjunction5` y = if x == True then y else False
+
+-- 6 (last one!)
+-- Show how the curried function definition mult x y z = x * y * z
+-- can be understood in terms of lambda expressions.
+
+-- answer
+-- mult x y z = x * y * z
+-- can be show using lambda as such:
+-- mult = \x -> (\y -> (\z -> x * y * z))
