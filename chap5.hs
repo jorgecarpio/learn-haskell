@@ -38,14 +38,14 @@ sorted xs = and [x <= y | (x, y) <- pairs xs]
 
 -- Uses zip to return all the positions at which a value occurs
 positions :: Eq a => a -> [a] -> [Int]
-positions x xs = [i| (x', i) <- zip xs [0..n], x==x']
+positions x xs = [i | (x', i) <- zip xs [0..n], x==x']
 	where n = length xs - 1
 
 -- Since strings are lists, you can use list comprehensions.
 
 -- This counts how many lowercase letters are in a string
 lowers :: String -> Int
-lowers xs = length[x|x <- xs, isLower x]
+lowers xs = length[x| x <- xs, isLower x]
 
 count :: Char -> String -> Int
 count x xs = length [x'|x' <- xs, x==x']
@@ -97,3 +97,23 @@ crack xs = encode (-factor) xs
 		   		chitab = [chisqr (rotate n table') table | n <- [0..25]]
 		   		table' = freqs xs
 
+-- Exercise 1
+-- Using list comprehension, give an expression that 
+-- calculates the sum of the first 100 squares.
+sumsquares :: Int -> Int
+sumsquares n = sum [ x^2 | x <-[1..n]]
+
+-- Exercise 2
+-- Show how the library function replicate can be defined as a list
+-- comprehension.
+replicateLC :: Int -> a -> [a]
+replicateLC n a = [a|_ <-[0..n-1]]
+
+-- Exercise 3 
+-- A triple (x,y,z) of positive integers can be termed pythagorean if 
+-- x^2 + y^2 = z^2.  Using list comprehension, define a function that 
+-- returns the list of all pythagorean triples whose components
+-- are at most at a given limit (i.e. > pyths 10 returns [(3,4,5),
+--	(4,3,5), (6,8,10), (8,6,10)]).
+pyths :: Int -> [a]
+pyths n = []
