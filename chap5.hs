@@ -49,7 +49,7 @@ lowers xs = length[x| x <- xs, isLower x]
 count :: Char -> String -> Int
 count x xs = length [x'|x' <- xs, x==x']
 
---Convert lowercase letters 'a-z' to integers 0-25
+--Convert lowercase letters 'a-z' to integers 0-25 |]
 let2int :: Char -> Int
 let2int c = ord c - ord 'a'
 
@@ -108,7 +108,7 @@ sumsquares n = sum [ x^2 | x <-[1..n]]
 replicateLC :: Int -> a -> [a]
 replicateLC n a = [a|_ <-[0..n-1]]
 
--- Exercise 3 
+-- Exercise 3 |]
 -- A triple (x,y,z) of positive integers can be termed pythagorean if 
 -- x^2 + y^2 = z^2.  Using list comprehension, define a function that 
 -- returns the list of all pythagorean triples whose components
@@ -118,6 +118,19 @@ pyths :: Int -> [(Int, Int, Int)]
 pyths n = [(x, y, z) | x <- [1..n], y <- [1..n], 
 			z <- [1..n], z^2 == x^2 + y^2]
 
+-- Exercise 4
+-- This function should return the list of all the perfect numbers up to
+-- a given limit.  A number (positive integer) is perfect if it equals the 
+-- sum of its factors.
+
+-- factors 6 gives [1,2,3,6]
+-- reverse (tail (reverse (factors 6)))
+-- gives [1,2,3] -- the beginning of the list
+
+-- sum(reverse (tail (reverse (factors 6)))) gives 6
+
+perfects :: Int -> [Int]
+perfects n = [x | x <- [1..n], x == sum (reverse (tail (reverse (factors x))))]
 
 
 
