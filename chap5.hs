@@ -42,7 +42,6 @@ positions x xs = [i | (x', i) <- zip xs [0..n], x==x']
 	where n = length xs - 1
 
 -- Since strings are lists, you can use list comprehensions.
-
 -- This counts how many lowercase letters are in a string
 lowers :: String -> Int
 lowers xs = length[x| x <- xs, isLower x]
@@ -115,5 +114,14 @@ replicateLC n a = [a|_ <-[0..n-1]]
 -- returns the list of all pythagorean triples whose components
 -- are at most at a given limit (i.e. > pyths 10 returns [(3,4,5),
 --	(4,3,5), (6,8,10), (8,6,10)]).
-pyths :: Int -> [a]
-pyths n = []
+pyths :: Int -> [(Int, Int, Int)]
+pyths n = [(x, y, z) | x <- [1..n], y <- [1..n], 
+			z <- [1..n], z^2 == x^2 + y^2]
+
+
+
+
+
+
+
+
