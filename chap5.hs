@@ -132,8 +132,19 @@ pyths n = [(x, y, z) | x <- [1..n], y <- [1..n],
 perfects :: Int -> [Int]
 perfects n = [x | x <- [1..n], x == sum (reverse (tail (reverse (factors x))))]
 
+-- Exercise 5
+-- Show this single comprehension [(x,y) | x <- [1,2,3], y <- [4,5,6]]
+-- can be re-expressed using two comprehensions with single generators.
+singlecomp :: Int -> [(Int, Int)]
+singlecomp n = [(x,y) | x <- [1..n], y <- [1..n]]
 
-
+twocomps :: Int -> [(Int, Int)]
+-- Here the first list comprehension [(a,b) | a <- [1..n]] will determine
+-- the series [(1, b), (2, b), (3, b)] for n of 3
+-- the second generator passes b to the first generator and in the above
+-- example will pass in a 1 for [(1,1), (2,1), (3,1)] and so on.
+-- concat is simply used to convert the resulting [[]] to a [].
+twocomps n = concat[[ (a,b) | a <- [1..n]] | b <- [1..n]]
 
 
 
