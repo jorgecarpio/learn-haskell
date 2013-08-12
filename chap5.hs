@@ -82,8 +82,8 @@ freqs xs = [percent (count x xs) n | x <- ['a'..'z']]
 		  where n = lowers xs
 
 --chi-square statistic
-chisqr :: [Float] -> [Float] -> Float
-chisqr os es = sum[((o - e)^2)/e | (o, e) <- zip os es]
+-- chisqr :: [Float] -> [Float] -> Float
+-- chisqr os es = sum[((o - e)^2)/e | (o, e) <- zip os es]
 
 --rotates a list n spaces, wrapping around to the start
 rotate :: Int -> [a] -> [a]
@@ -166,6 +166,16 @@ newpositions :: Char -> [Char] -> [Int]
 newpositions x xs = find x (zip xs [0..n])
  	where n = length xs - 1
 
+-- Exercise 7
+-- The scalar product of two integer lists xs and ys of length n
+-- is given by the sum of the products of corresponding integers.
+-- Show how a list comprehension can be used to define the following
+-- function, using chisqr as an example
+-- > scalarproduct [1,2,3] [4,5,6]
+-- > 32
+chisqr :: [Float] -> [Float] -> Float
+chisqr os es = sum[((o - e)^2)/e | (o, e) <- zip os es]
 
-
+scalarproduct :: [Int] -> [Int] -> Int
+scalarproduct is js = sum [(i * j)| (i, j) <- zip is js]
 
