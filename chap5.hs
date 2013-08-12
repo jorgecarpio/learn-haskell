@@ -146,6 +146,20 @@ twocomps :: Int -> [(Int, Int)]
 -- concat is simply used to convert the resulting [[]] to a [].
 twocomps n = concat[[ (a,b) | a <- [1..n]] | b <- [1..n]]
 
+-- Exercise 6
+-- Redefine the function positions using find.
+
+-- This function will find pairs of tuples in a list that match a key
+find :: Eq a => a -> [(a,b)] -> [b]
+find k t = [v | (k', v) <- t, k==k']
+
+-- Uses zip to return all the positions at which a value occurs
+positions :: Eq a => a -> [a] -> [Int]
+positions x xs = [i | (x', i) <- zip xs [0..n], x==x']
+	where n = length xs - 1
+
+newpositions
+
 
 
 
