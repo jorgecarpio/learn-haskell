@@ -25,8 +25,8 @@ primes :: Int -> [Int]
 primes n = [x | x <- [2..n], prime x]
 
 -- This function will find pairs of tuples in a list that match a key
-find :: Eq a => a -> [(a,b)] -> [b]
-find k t = [v | (k', v) <- t, k==k']
+-- find :: Eq a => a -> [(a,b)] -> [b]
+-- find k t = [v | (k', v) <- t, k==k']
 
 -- This returns a list of pairs of adjacent elements from a source list.
 pairs :: [a] -> [(a,a)]
@@ -37,9 +37,9 @@ sorted :: Ord a => [a] -> Bool
 sorted xs = and [x <= y | (x, y) <- pairs xs]
 
 -- Uses zip to return all the positions at which a value occurs
-positions :: Eq a => a -> [a] -> [Int]
-positions x xs = [i | (x', i) <- zip xs [0..n], x==x']
-	where n = length xs - 1
+-- positions :: Eq a => a -> [a] -> [Int]
+-- positions x xs = [i | (x', i) <- zip xs [0..n], x==x']
+--	where n = length xs - 1
 
 -- Since strings are lists, you can use list comprehensions.
 -- This counts how many lowercase letters are in a string
@@ -152,13 +152,19 @@ twocomps n = concat[[ (a,b) | a <- [1..n]] | b <- [1..n]]
 -- This function will find pairs of tuples in a list that match a key
 find :: Eq a => a -> [(a,b)] -> [b]
 find k t = [v | (k', v) <- t, k==k']
+-- *Main> find 1 [(1, 'a'), (2, 'b')]
+-- "a"
 
 -- Uses zip to return all the positions at which a value occurs
 positions :: Eq a => a -> [a] -> [Int]
 positions x xs = [i | (x', i) <- zip xs [0..n], x==x']
 	where n = length xs - 1
+-- *Main> positions 9 [9, 8, 7, 6]
+-- [0]
 
-newpositions
+newpositions :: Char -> [Char] -> [Int]
+newpositions x xs = find x (zip xs [0..n])
+ 	where n = length xs - 1
 
 
 
