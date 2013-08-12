@@ -46,26 +46,57 @@ sorted xs = and [x <= y | (x, y) <- pairs xs]
 lowers :: String -> Int
 lowers xs = length[x| x <- xs, isLower x]
 
+-- letters will count how many upper and lower case letters 
+-- are in a string
+letters :: String -> Int
+letters xs = length [x | x <- xs, isLetter x]
+
 count :: Char -> String -> Int
 count x xs = length [x'|x' <- xs, x==x']
+
+-- newcount should return a count of letters, with upper and lower
+-- being equal.  Hmmm...
+newcount :: Char -> String -> Int
+-- This is ugly but works;  
+newcount x xs = length [x' | x' <- xs
+				,x == x' || toUpper x == x'  || toLower x == x']
 
 --Convert lowercase letters 'a-z' to integers 0-25 |]
 let2int :: Char -> Int
 let2int c = ord c - ord 'a'
 
+-- Convert uppercase letters 'A-Z' to integers 0-25
+upperlet2int :: Char -> Int
+upperlet2int c = ord c - ord 'A'
+
 --Reverse
 int2let :: Int -> Char
 int2let n = chr(ord 'a' + n)
 
---Shift applies a factor to lowercase letters wrapping at end of 
+-- Reverse for uppercase letters
+int2upperlet :: Int -> Char
+int2upperlet n = chr(ord 'A' + n)
+
+--shift applies a factor to lowercase letters wrapping at end of 
 --alphabet.
 shift :: Int -> Char -> Char
 shift n c | isLower c = int2let((let2int c + n)`mod` 26)
 		  | otherwise = c
 
+-- newshift applies a factor to letters (same for upper and lower)
+-- wrapping at the end of the alphabet.
+newshift :: Int -> Char -> Char
+newshift n c | isLower c = int2let((let2int c + n)`mod` 26)
+			 | isUpper c = int2upperlet((upperlet2int c + n)`mod` 26)
+			 | otherwise = c
+
 --Encode uses shift with a string comprehension.
 encode :: Int -> String -> String
 encode n xs = [shift n x |x <- xs]
+
+-- newencode can work with upper and lowercase letters 
+newencode :: Int -> String -> String
+newencode n xs = [newshift n x | x <- xs]
 
 --Letter frequencies in English
 table :: [Float]
@@ -81,9 +112,21 @@ freqs :: String -> [Float]
 freqs xs = [percent (count x xs) n | x <- ['a'..'z']]
 		  where n = lowers xs
 
+-- Returns the freq table for any string; upper or lowercase
+newfreqs :: String -> [Float]
+newfreqs xs = [percent (newcount x xs) n | x <- ['a'..'z']]
+			 where n = letters xs
+
 --chi-square statistic
 -- chisqr :: [Float] -> [Float] -> Float
 -- chisqr os es = sum[((o - e)^2)/e | (o, e) <- zip os es]
+
+-- Uses zip to return all the positions at which a value occurs
+positions :: Eq a => a -> [a] -> [Int]
+positions x xs = [i | (x', i) <- zip xs [0..n], x==x']
+	where n = length xs - 1
+-- *Main> positions 9 [9, 8, 7, 6]
+-- [0]
 
 --rotates a list n spaces, wrapping around to the start
 rotate :: Int -> [a] -> [a]
@@ -95,6 +138,7 @@ crack xs = encode (-factor) xs
 		   		factor = head (positions(minimum chitab) chitab)
 		   		chitab = [chisqr (rotate n table') table | n <- [0..25]]
 		   		table' = freqs xs
+
 
 -- Exercise 1
 -- Using list comprehension, give an expression that 
@@ -155,12 +199,7 @@ find k t = [v | (k', v) <- t, k==k']
 -- *Main> find 1 [(1, 'a'), (2, 'b')]
 -- "a"
 
--- Uses zip to return all the positions at which a value occurs
-positions :: Eq a => a -> [a] -> [Int]
-positions x xs = [i | (x', i) <- zip xs [0..n], x==x']
-	where n = length xs - 1
--- *Main> positions 9 [9, 8, 7, 6]
--- [0]
+
 
 newpositions :: Char -> [Char] -> [Int]
 newpositions x xs = find x (zip xs [0..n])
@@ -179,3 +218,12 @@ chisqr os es = sum[((o - e)^2)/e | (o, e) <- zip os es]
 scalarproduct :: [Int] -> [Int] -> Int
 scalarproduct is js = sum [(i * j)| (i, j) <- zip is js]
 
+-- Exercise 8
+-- Modify the Caesar cipher to handle upper-case letters.
+
+newcrack :: String -> String
+newcrack xs = newencode (-factor) xs
+			  where 
+			  	factor = head (positions(minimum chitab) chitab)
+			  	chitab = [chisqr (rotate n table') table | n <- [0..25]]
+			  	table' = newfreqs xs
