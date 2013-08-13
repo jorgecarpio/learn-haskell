@@ -87,3 +87,8 @@ expo m (n + 1) = m * (expo m n)
 and3 :: [Bool] -> Bool
 and3 [] = True
 and3 (x:xs) = x && and3 xs
+
+-- Concatenate a list of lists:
+concat3 :: [[a]] -> [a]
+concat3 [[]] = []
+concat3 [(x:xs)] = xs
