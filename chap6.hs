@@ -33,3 +33,50 @@ expo           :: Int -> Int -> Int
 expo m 0       = 1
 expo 0 _       = 0
 expo m (n + 1) = m * (expo m n)
+
+-- 2.  Show how length [1,2,3], drop 3 [1,2,3,4,5], and init [1,2,3] are
+-- evaluated.
+-- length :: [a] -> Int
+-- length	[] = 0
+-- length (_:xs) = 1 + length xs
+
+-- length [1,2,3]
+-- = {applying length}
+--   1 + length [2,3]
+-- = {applying length}
+--   1 + (1 + length [3])
+-- = {applying length}
+--   1 + (1 + (1 + length []))
+-- = {applying length}
+--   1 + (1 + (1 + (0)))
+-- = {applying (+)}
+--   3
+
+-- drop :: Int -> [a] -> [a]
+-- drop 0 xs = xs
+-- drop (n + 1) [] = []
+-- drop (n + 1) (_:xs) = drop n xs
+
+-- drop 3 [1,2,3,4,5]
+-- = {applying drop}
+-- drop 2 [2,3,4,5]
+-- = {applying drop}
+-- drop 1 [3,4,5]
+-- = {applying drop}
+-- drop 0 [4,5]
+-- = {applying drop}
+-- [4,5]
+
+-- init :: [a] -> [a]
+-- init [_] = []
+-- init (x:xs) = x: init xs
+
+-- init [1,2,3]
+-- = {applying init}
+-- [1: init [2,3]]
+-- = {applying init}
+-- [1: 2: init [3]]
+-- = {applying init}
+-- [1: 2: []]
+-- [1,2]
+
