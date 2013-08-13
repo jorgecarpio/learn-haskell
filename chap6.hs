@@ -80,3 +80,10 @@ expo m (n + 1) = m * (expo m n)
 -- [1: 2: []]
 -- [1,2]
 
+-- 3.  Withou looking at the definitions from the standard prelude, define the 
+-- folowing library functions using recursion:
+
+-- Decide if all logical values in a list are True:
+and3 :: [Bool] -> Bool
+and3 [] = True
+and3 (x:xs) = x && and3 xs
