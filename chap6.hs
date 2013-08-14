@@ -107,3 +107,4 @@ replicate3 (n+1) x = [x] ++ replicate3 n x
 -- Select the nth element of a list:
 selectnth :: [a] -> Int -> a
 selectnth (x:xs) 0 = x
+selectnth (xs) (n+1) = selectnth (tail xs) n
