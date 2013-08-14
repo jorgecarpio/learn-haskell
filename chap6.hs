@@ -112,3 +112,4 @@ selectnth (xs) (n+1) = selectnth (tail xs) n
 -- Decide if a value is an element of a list (elem):
 isamember :: Eq a => a -> [a] -> Bool
 isamember _ [] = False
+isamember x [y] = if x == y then True else False
