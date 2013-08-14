@@ -118,3 +118,11 @@ isamember x [y] = if x == y then True else False
 isamember x (y:ys) | x == y = True
                    | otherwise = isamember x ys
 
+-- 4. Define a recursive function merge that merges two sorted lists
+-- to give a single sorted list.  
+-- For example:
+-- > merge [2,5,6] [1,3,4]
+-- [1,2,3,4,5,6]
+merge :: Ord a => [a] -> [a] -> [a]
+merge [] xs = xs
+merge xs [] = xs
