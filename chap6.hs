@@ -126,3 +126,7 @@ isamember x (y:ys) | x == y = True
 merge :: Ord a => [a] -> [a] -> [a]
 merge [] xs = xs
 merge xs [] = xs
+-- isort is recursive, that counts, right?
+merge xs ys = isort (xs ++ ys)
+
+
