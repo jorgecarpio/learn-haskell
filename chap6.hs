@@ -90,5 +90,10 @@ and3 (x:xs) = x && and3 xs
 
 -- Concatenate a list of lists:
 concat3 :: [[a]] -> [a]
+concat3 [] = []
 concat3 [[]] = []
-concat3 [(x:xs)] = xs
+-- concat3 [(x:xs)] = [x] ++ concat3 [xs]
+-- concat3 [(x:xs)] = xs --> concat3 [[1,2]] --> [2]
+-- concat3 [x:xs] = xs --> concat3 [[1,2]] --> [2]
+-- concat3 (x:xs) = x --> concat3 [[1,2]] --> [1,2]
+concat3 (x:xs) = x ++ concat3 (xs)
