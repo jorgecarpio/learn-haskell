@@ -113,3 +113,8 @@ selectnth (xs) (n+1) = selectnth (tail xs) n
 isamember :: Eq a => a -> [a] -> Bool
 isamember _ [] = False
 isamember x [y] = if x == y then True else False
+-- This one don't work.
+-- isamemeber x (y:ys) = if x == y then True else isamember x ys
+isamember x (y:ys) | x == y = True
+                   | otherwise = isamember x ys
+
