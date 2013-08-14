@@ -102,3 +102,4 @@ concat3 (x:xs) = x ++ concat3 (xs)
 replicate3 :: Int -> a -> [a]
 replicate3 0 _ = []
 replicate3 1 x = [x]
+replicate3 (n+1) x = [x] ++ replicate3 n x
