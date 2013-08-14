@@ -97,3 +97,8 @@ concat3 [[]] = []
 -- concat3 [x:xs] = xs --> concat3 [[1,2]] --> [2]
 -- concat3 (x:xs) = x --> concat3 [[1,2]] --> [1,2]
 concat3 (x:xs) = x ++ concat3 (xs)
+
+-- Produce a list with n identical elemnts:
+replicate3 :: Int -> a -> [a]
+replicate3 0 _ = []
+replicate3 1 x = [x]
