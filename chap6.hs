@@ -164,3 +164,9 @@ takem :: Int -> [a] -> [a]
 takem 0 _ = []
 -- takem 1 (x:xs) = [x]
 takem (i+1) (x:xs) = concat [[x], (takem i xs)]
+
+-- 6.3
+-- select the last element of a non-empty list
+getlast :: [a] -> a
+getlast [a] = a
+getlast (x:xs) = getlast xs where length xs = 1
