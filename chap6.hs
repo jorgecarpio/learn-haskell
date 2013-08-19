@@ -146,3 +146,14 @@ msort [] = []
 msort [x] = [x]
 msort xs = merge (msort ys) (msort zs) where (ys, zs) = halve xs
 
+-- 6
+-- Using the 5 step process, define the library functions that
+-- calculate the sum of a list of numbers, take a given number of 
+-- elements from the start of a list, and select the last element
+-- of a non-empty list.
+
+-- 6.1
+-- calculate the sum of a list of numbers
+sumlist :: [a] -> Num a => a
+sumlist [] = 0
+sumlist (x:xs) = x + (sumlist xs)
