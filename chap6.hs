@@ -157,3 +157,10 @@ msort xs = merge (msort ys) (msort zs) where (ys, zs) = halve xs
 sumlist :: [a] -> Num a => a
 sumlist [] = 0
 sumlist (x:xs) = x + (sumlist xs)
+
+-- 6.2
+-- take a given # of elements from the start of a list
+takem :: Int -> [a] -> [a]
+takem 0 _ = []
+-- takem 1 (x:xs) = [x]
+takem (i+1) (x:xs) = concat [[x], (takem i xs)]
