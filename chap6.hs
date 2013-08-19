@@ -137,6 +137,12 @@ merge (x:xs) (y:ys) | x <= y = x: merge xs (y:ys)
 -- Hint: first define a function halve that splits a list into two
 -- halves whose length differs by at most one.
 
-halve :: [a] -> [([a],[a])]
-halve xs = [(take ((length xs `div` 2)) xs, drop ((length xs `div` 2)) xs)]
+halve    :: [a] -> ([a],[a])
+-- halve xs = [(take ((length xs `div` 2)) xs, drop ((length xs `div` 2)) xs)]
+halve xs = splitAt (length xs `div` 2) xs
+
+msort    :: Ord a => [a] -> [a]
+msort [] = []
+msort [x] = [x]
+msort xs = merge (msort ys) (msort zs) where (ys, zs) = halve xs
 
