@@ -98,3 +98,52 @@ channel = id
 -- re-expressed using higher order functions map and filter.
 -- map f (filter p xs)
 
+-- 2
+-- Define the higher order functions all, any, takeWhile, dropWhile
+
+-- 2.1 all
+-- all p = and . map p
+
+-- 2.2 any
+-- any p =  or . map p
+
+-- 2.3 takeWhile
+-- takeWhile _ []      = []
+-- takeWhile p (x:xs)  | p x = x: takeWhile p xs
+--                     | otherwise = []
+
+-- 2.4 dropWhile
+-- dropWhile _ [] 	  = []
+-- dropWhile p (x:xs) | not p x = x: dropWhile p xs
+--                    | otherwise = []
+
+-- 3
+-- Redefine the functions map f and filter p using foldr.
+-- f []     = v
+-- f (x:xs) = x # f xs
+
+-- interpreting sum this way gives
+-- sum []     = 0
+-- sum (x:xs) = x + sum xs
+
+-- using the foldr recursion pattern gives
+-- sum = foldr (+) 0
+
+-- map f would look like
+-- map = foldr (f) 0
+-- foldr (\x xs -> f x:xs) []
+
+-- filter p would look like
+-- filer p = foldr (\x xs -> if p x then [x] else []) [] xs
+-- i.e.  foldr (\a b -> if p a then [a] else []) [] [1,1,1,3]
+-- []
+
+-- 4
+-- Using foldl, define a function that converts a decimal into int
+-- i.e. >dec2int [2,3,4,5]
+--      2345
+dec2int :: [Int] -> Int
+dec2int = foldl (\a b -> a*10 + b) 0
+
+
+
