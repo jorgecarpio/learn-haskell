@@ -145,5 +145,44 @@ channel = id
 dec2int :: [Int] -> Int
 dec2int = foldl (\a b -> a*10 + b) 0
 
+-- 5
+-- Explain why the following definition is invalid:
+-- sumsqreven = compose [sum, map (^2), filter even]
+-- sum is inside the list comprehension, should foldr sum (or map)
+-- over the resulting list comprehension.
+
+-- 6
+-- Define curry, that converts a function on pairs into a curried
+-- function and uncurry.
+--curry1 :: ((a,b) -> c) -> (a -> b -> c)
+-- curry1 f = \x y -> f (x, y)
+
+-- uncurry1 :: (a -> b -> c) -> ((a,b) -> c)
+-- uncurry1 f = \(x,y) -> f x y
+
+-- 7
+--unfold :: a -> a -> a -> [a]
+--unfold p h t x | p x = []
+--               | otherwise = h x : unfold p h t (t x)
+
+-- chop8 as redefined using unfold
+-- chop8 = unfold (==[]) (take 8 bits) (drop 8 bits)
+-- should be chop8 = unfold null (take 8) (drop 8)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
