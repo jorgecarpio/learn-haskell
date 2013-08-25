@@ -165,10 +165,35 @@ dec2int = foldl (\a b -> a*10 + b) 0
 --unfold p h t x | p x = []
 --               | otherwise = h x : unfold p h t (t x)
 
+-- int2bin example
+-- int2bin = unfold (==0) (`mod` 2) (`div` 2)
+
 -- chop8 as redefined using unfold
 -- chop8 = unfold (==[]) (take 8 bits) (drop 8 bits)
 -- should be chop8 = unfold null (take 8) (drop 8)
 
+-- map f redefined using unfold
+-- map f = unfold null (f) (tail)
+-- should be map f = unfold null (f . head) tail
+
+-- iterate f redefined using unfold
+-- iterate f = unfold (const False) id f -- not sure how const False fits in
+
+-- 8
+-- new encode will add a parity bit
+addparity      :: [Bit] -> [Bit]
+addparity bits = if sum bits `mod` 2 /= 0 then bits ++ [1]
+                 else bits ++ [0] 
+
+newencode :: String -> [Bit]
+newencode = addparity . concat . map (make8 . int2bin . ord)
+
+checkparity      :: [Bit] -> [Bit]
+checkparity bits = if (sum (take (length bits - 1) bits) `mod` 2 == last bits) then take (length bits - 1) bits
+	               else error "Oh baby"
+
+newdecode :: [Bit] -> String
+newdecode = map (chr . bin2int) . chop8 . checkparity
 
 
 
