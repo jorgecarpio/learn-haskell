@@ -195,12 +195,12 @@ checkparity bits = if (sum (take (length bits - 1) bits) `mod` 2 == last bits) t
 newdecode :: [Bit] -> String
 newdecode = map (chr . bin2int) . chop8 . checkparity
 
+-- 9
+newtransmit :: String -> String
+newtransmit = newdecode . badchannel . newencode
 
-
-
-
-
-
+badchannel :: [Bit] -> [Bit]
+badchannel = tail
 
 
 
